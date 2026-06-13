@@ -105,3 +105,8 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
+# 임베드한 Unity 패키지는 추적한다.
+# (루트 .gitignore의 NuGet용 규칙 **/[Pp]ackages/* 이 Unity Packages 폴더까지
+#  무시하므로 명시적으로 예외 처리)
+!/Packages/com.unity.toonshader/
+
