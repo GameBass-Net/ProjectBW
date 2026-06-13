@@ -22,3 +22,16 @@ Design/
 - 설계 논의 결과는 해당 관심사 문서에 반영하고, 주요 결정은 `Design/README.md` 결정 로그에 한 줄 요약한다.
 - 빈 placeholder 문서는 만들지 않는다. 내용이 생기면 그때 문서를 추가한다.
 - Unity 프로젝트 본체는 `Client/` 에 있다.
+
+## 코드 구조
+
+- **Unity 프로젝트**: `Client/` (Unity 6000.4 / URP 17.4).
+- **엔진 비종속 코어 라이브러리**: `Core/` (Unity 밖 독립 .NET 솔루션 `GameBassLib.sln`).
+  - `Bass.Core` (멀티타깃 `netstandard2.1;net10.0`, 순수 C#, UnityEngine·Unity.Mathematics 의존 0) — 결정성 필요한 로직(절차 생성 등). 향후 서버 포팅 대비.
+  - `Bass.Core.Test` (xUnit, net10) — `dotnet test`로 검증.
+  - **Unity 연동**: Release/`netstandard2.1` 빌드 DLL을 **수동으로** `Client/Assets/Plugins/Bass.Core.dll`에 복사·커밋. Unity는 Plugins의 DLL만 사용(빌드 파이프라인에 넣지 않음).
+- 작업 체크리스트는 `Design/TODO.md`, 구현 구조 상세는 `Design/tech/world-generation.md`.
+
+## 작업 환경
+
+- Unity가 떠 있으면 **unity-mcp**(MCP) 도구로 컴파일 에러 확인(`read_console`)·테스트(`run_tests`)·메뉴 실행 등이 가능하다. 코드 변경 후 `refresh_unity`→`read_console`로 검증할 것.
