@@ -1,0 +1,116 @@
+﻿# Version 7.0.3
+
+## Fixes
+- Fix UI category layout in the "UI Building Catalog Menu Example" scene.
+- Pre-placed Building Parts in the scene are not being assigned to a group on play.
+- Fixed direction indicator showing on Building Parts in Destruction state.
+
+## Features
+- AdjustmentBuildingState: support for swapping positions of parts within the same category.
+- BuildingManager: supports global Building Rules, applied independently of any area.
+- BuildingGroup: pivot (transform) now tracks the group center every frame for dynamic groups.
+- New Proximity Restriction Rule: min/max distance to nearby parts per category.
+
+## Improvements
+- PlacementBuildingState: reduced from 718 to 369 lines via helper class.
+- Adjustment/Destruction/Upgrade states: minor internal cleanup.
+- Helpers/BuildingSocketSearcher - public, reusable.
+- Helpers/PreviewMovementSolver - public, reusable.
+- Editors split into static drawer helpers to reduce line counts.
+- Building Grid: cell colors now use HDR, separate emissive fields have been removed.
+
+# Version 7.0.2
+
+## Fixes
+- Fixed category renaming bug overwriting entries with shared first letter.
+- BuildingPart: CacheSystem shuts down on OnDisable with per-frame self-collision tracking.
+- BuildingCollisionCondition: unified self-filter, ignores just-placed parts for 1 frame.
+- BuildingCollapseCondition: parts no longer fall when EnablePhysics is disabled.
+- BuildingAnimationBehavior: base transforms restored on Shutdown to prevent scale drift.
+- BuildingCondition: new EnableDebug flag, gizmos only draw when inspector is open.
+- BuildingGrid: removed Grid Pivot.
+- DebugRendererManager: buffers cleared on scene change and assembly reload.
+- BuildingBatchingSystem: BatchAllGroups now respects the EnableBatching flag.
+- BuildingPlacementSystem: UpdateMaterialsColor no longer throws when cache is shut down.
+
+## Features
+- BuildingGroup: RecenterPivot supports Center, Ground, GroupTransform and FirstPart modes.
+- BuildingGrid: rendering is now Instanced-only (Normal mode removed).
+- BuildingPhysicsSystem: stability checks batched by the manager instead of per-part Update.
+- DebugRenderer: solid primitives go through Graphics.DrawMesh for Built-in/URP/HDRP.
+
+## Improvements
+- Many core systems are now subclassable, exposing internals as protected/virtual.
+- BuildingInput: CustomPartReferences and UseCustomPartsSelection are now public.
+- BuildingSaveSystem: reuses buffers, single-pass collection, skips autosave when clean.
+- Physics queries now go through PhysicsExtensions non-alloc wrappers.
+- DebugRenderer: cached vertex arrays, removed expiry tracking and editor FindObjects scans.
+
+# Version 7.0.1 
+
+## Fixes
+- Building Group: bounds now update correctly after a part is adjusted.
+- Building Category slot display fixed in the Building Catalog Menu UI.
+- Fixed missing Input Action References on the New Input System.
+
+# Version 7.0.0
+
+> Complete rewrite from the ground up.
+> Every component has been redesigned or replaced.
+> Migration from 6.x is not supported.
+
+## Features
+- Hub Editor with 8 pages: setup, samples, integrations,
+  extensions, integrity checks, release notes, roadmap, licenses.
+- Building Grid system with cell-based placement, occupancy
+  tracking, stage progression, and visual rendering.
+- Building Terrain system with full backup and restore at runtime.
+- Building Menus UI: Catalog and Radial menus with categories,
+  slot actions, search, gamepad, and mobile support.
+- Building Collections ScriptableObject for reusable part sets.
+- Renderer Variant system with material sets per variant.
+- Building Rules system with height and category filters.
+- Command system (Place, Destroy, Adjust, Upgrade) with Undo.
+- Preset system for Building Parts using ScriptableObjects.
+- Animation Behavior with Animator states and procedural support.
+- Debris Behavior reacting to destruction, falling, and collapse.
+- Audio system for building event sound effects.
+- Quick Setup tool for one-click scene configuration.
+- Building Part creation tool with automatic mesh, variant,
+  condition, and prefab setup.
+- Building Part Registry with auto-refresh post-processor.
+- Save system with multiple providers, backup files, scene-based
+  keys, and mobile auto-save.
+- Network adapter interfaces for multiplayer authority and sync.
+- Four camera views: First Person, Third Person, Top Down, Orbital.
+- Upgrade building mode for switching part variants in place.
+- Adjustment building mode for repositioning placed parts.
+
+## Improvements
+- Shared editor helpers for consistent inspector layouts.
+- HashSet-based registries for faster lookups.
+- Unified manager API: Register, Unregister, GetRegistered<T>().
+- Centralized event-publisher architecture across all systems.
+- Building Area redesigned with priority, shapes, and modular rules.
+- Building Socket data-driven with cleaner snap results.
+- Building Group lifecycle and batching more reliable.
+- Building Part split into sub-systems: Renderer, Placement,
+  Condition, Behavior, Cache.
+- Building Input unified for new Input System and legacy input.
+- Building Controller simplified with state-based mode management.
+- Placement accuracy improved for snapping, grounding, and overlap.
+- Collision and stability checks rewritten with fewer false positives.
+
+## Removed
+- NavMesh Condition removed from core (available as extension).
+- Physics Condition replaced by Collapse Condition.
+- Linkable Surface and Collision Surface removed.
+- Standalone/Mobile Input Handlers replaced by unified Building Input.
+- Inspector Building Placer removed.
+- Legacy UnityEvents wiring and async preview hacks removed.
+
+## Fixes
+- Hard-coded restrictions replaced by modular area rules.
+- Unstable snapping and socket obstruction edge cases resolved.
+- Unreliable overlap detection and bounds issues fixed.
+- Batching cleanup issues in Building Groups resolved.

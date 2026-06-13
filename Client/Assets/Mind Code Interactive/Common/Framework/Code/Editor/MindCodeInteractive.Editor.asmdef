@@ -1,0 +1,19 @@
+{
+    "name": "MindCodeInteractive.Editor",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:94ba3d474f1fef64db13dd931445f32f",
+        "GUID:ce1c49e3c897ad94a91f91b75bbf0468"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

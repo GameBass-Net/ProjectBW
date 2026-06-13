@@ -1,0 +1,17 @@
+# Game Creator 2 Inventory - Upgrade System
+Upgrade building parts to higher tiers using Game Creator 2 Inventory resources.
+Status: PLANNED
+Version: 7.1
+Target: Q3 2026
+
+# Netcode Integration
+Multiplayer building sync using Unity Netcode for GameObjects.
+Status: PLANNED
+Version: 7.2
+Target: Q3 2026
+
+# Pro Build System Integration
+Integration with Pro Build System for extended building workflows.
+Status: PLANNED
+Version: 7.2
+Target: Q3 2026

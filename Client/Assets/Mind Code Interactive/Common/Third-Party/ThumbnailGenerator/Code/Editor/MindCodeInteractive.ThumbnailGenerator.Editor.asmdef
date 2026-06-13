@@ -1,0 +1,22 @@
+{
+    "name": "MindCodeInteractive.ThumbnailGenerator.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ac8794fa1e2407044b9799a332a65c7d",
+        "GUID:d60799ab2a985554ea1a39cd38695018",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:19642377b7381574d8de8f2e694f21fb"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

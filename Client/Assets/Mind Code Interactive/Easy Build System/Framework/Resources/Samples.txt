@@ -1,0 +1,122 @@
+# Building Area
+Category: Feature Scenes
+CategoryDescription: Showcases building features through standalone demonstration scenes.
+SceneName: Feature - Building Area Example
+Order: 0
+Define spatial areas with Building Rules that control where and how Building Parts can be placed.
+
+# Building Batching
+Category: Feature Scenes
+SceneName: Feature - Building Batching Example
+Order: 1
+Combine placed Building Groups into optimized meshes to reduce draw calls.
+
+# Building Collapse
+Category: Feature Scenes
+SceneName: Feature - Building Collapse Example
+Order: 2
+Simulate physics-based collapses when Building Parts lose structural support.
+
+# Building Grid
+Category: Feature Scenes
+SceneName: Feature - Building Grid Example
+Order: 3
+Snap Building Part placement to a customizable grid for consistent and precise layouts.
+
+# Building Group
+Category: Feature Scenes
+SceneName: Feature - Building Group Example
+Order: 4
+Automatically organize placed Building Parts into groups based on proximity.
+
+# Building Save
+Category: Feature Scenes
+SceneName: Feature - Building Save Example
+Order: 5
+Persist placed Building Parts across sessions using automatic or manual save systems.
+
+# Building Socket
+Category: Feature Scenes
+SceneName: Feature - Building Socket Example
+Order: 6
+Define precise snap points where Building Parts connect together.
+
+# Gamepad First Person
+Category: Sample Scenes
+CategoryDescription: Showcases the building workflow across different camera setups, input methods and environments.
+SceneName: Sample - Gamepad First Person Building Example
+Order: 0
+Building workflow using a gamepad controller with Building Radial Menu part selection.
+
+# Mobile First Person
+Category: Sample Scenes
+SceneName: Sample - Mobile First Person Building Example
+Order: 1
+Building workflow using on-screen mobile controls with Building Radial Menu part selection.
+
+# Standalone First Person
+Category: Sample Scenes
+SceneName: Sample - Standalone First Person Building Example
+Order: 2
+Building workflow using keyboard and mouse in a first-person perspective.
+
+# Standalone Terrain Building
+Category: Sample Scenes
+SceneName: Sample - Standalone Terrain Building Example
+Order: 3
+Building workflow interacting with terrain elements such as trees, grass and surface textures.
+
+# Standalone Third Person
+Category: Sample Scenes
+SceneName: Sample - Standalone Third Person Building Example
+Order: 4
+Building workflow using keyboard and mouse in a third-person perspective.
+
+# Standalone Top Down
+Category: Sample Scenes
+SceneName: Sample - Standalone Top Down Building Example
+Order: 5
+Building workflow using keyboard and mouse in a top-down perspective.
+
+# Standalone UI Building Catalog Menu
+Category: Sample Scenes
+SceneName: Sample - Standalone UI Building Catalog Menu Example
+Order: 6
+Building workflow using keyboard and mouse with the Building Catalog Menu.
+
+# Standalone UI Building Radial Menu
+Category: Sample Scenes
+SceneName: Sample - Standalone UI Building Radial Menu Example
+Order: 7
+Building workflow using keyboard and mouse with the Building Radial Menu.
+
+# VR First Person
+Category: Sample Scenes
+SceneName: Sample - VR First Person Building Example
+Order: 8
+Building workflow using VR controls with Building Radial Menu part selection.
+
+# Buggy Constructor
+Category: Extension Scenes
+CategoryDescription: Showcases optional extensions through standalone demonstration scenes.
+SceneName: Extension - Buggy Constructor Example
+Order: 0
+Assemble a buggy by dragging and carrying Building Parts with physics interactions and socket snapping.
+
+# Home Designer
+Category: Extension Scenes
+SceneName: Extension - Home Designer Example
+Order: 1
+Place and arrange furniture in a pre-built house using the Building Catalog Menu.
+
+# Survival Blueprint
+Category: Extension Scenes
+SceneName: Extension - Survival Blueprint Example
+Order: 2
+Build structures step by step using a resource-based construction workflow with ghost blueprints.
+
+# Survival Upgradable
+Category: Extension Scenes
+SceneName: Extension - Survival Upgradable Example
+Order: 3
+Upgrade placed Building Parts by switching between material variants such as wood, stone and metal.

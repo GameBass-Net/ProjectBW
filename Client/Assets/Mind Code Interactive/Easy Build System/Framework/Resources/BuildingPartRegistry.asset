@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8561f28928f83d3469cb876f8fc07162, type: 3}
+  m_Name: BuildingPartRegistry
+  m_EditorClassIdentifier: 
+  m_partReferences:
+  - m_category: Default
+    m_buildingParts:
+    - {fileID: 1593434349660690981, guid: 3db8ca693ac91fd4398dcbcbf347faab, type: 3}
+    - {fileID: 4395986643303867480, guid: 2c2150619edb1a34aa78fb26d594a0d6, type: 3}
+    - {fileID: 5999683539083730665, guid: c991601cb1ef53a499cae5dced0f853b, type: 3}
+    - {fileID: 3263649052149555592, guid: 17f2f60381e2bf4429441c68fe9c7ba2, type: 3}
+    - {fileID: 3997138973223149387, guid: cd0ec9182e2ea71459932e8277b390d8, type: 3}
+    - {fileID: 6902637427740368956, guid: fbce65b03fb6bc54ab56bc9529b4ca25, type: 3}
+    - {fileID: 8821942056514513058, guid: 514a6f75a82b8804e8c71237d3f823db, type: 3}
+    - {fileID: 6916555287871576377, guid: 0f86d46136398794ebe8ec619ccd5325, type: 3}
+    - {fileID: 1241220853856674797, guid: 8f14f2176fc769c4eb3d07dc39da1279, type: 3}
+    - {fileID: 5202216944387367125, guid: e333ae3c0e44ea84c9e5845676a35f5c, type: 3}
+    - {fileID: 5955314227468737619, guid: f3127af460eaf76498c8ed8adb2ff465, type: 3}
+    - {fileID: 777559550914452430, guid: 87a5694190f352e43a3265c7799630b8, type: 3}
+    - {fileID: 6784468303389084477, guid: bcae133d1dcbe3445b76770f9089d0d1, type: 3}
+    - {fileID: 3788432707959873961, guid: 5f20ad50f84d05d4a9c87c473ed70cc7, type: 3}
+    - {fileID: 4384611117580595282, guid: d2e7a7a87eb3ab747ae500160700945d, type: 3}
+    - {fileID: 3910278691750638204, guid: 8e55a569b64e41c47beba450613adfff, type: 3}
+    - {fileID: 9094885843497312413, guid: 5e5c6ee2ee664a642bd36393c82d3f9e, type: 3}
+    - {fileID: 1546041745668247383, guid: bd4462a4c65f0bd4eb8e466881be9312, type: 3}
+    - {fileID: 147875167740069937, guid: ee4567d6c1059ec44a9d5a5dda3a4f48, type: 3}
+  - m_category: Floor
+    m_buildingParts:
+    - {fileID: 7053642884495144989, guid: a92b8f13c069dfa4ba8da09deb570a53, type: 3}
+    - {fileID: 6956435991773083302, guid: 68173842ca1f9004d892e98c1371c638, type: 3}
+    - {fileID: 6826786551416947005, guid: 2bc9d73adfb75384cbe2da6add7f2f99, type: 3}
+    - {fileID: 7053642884495144989, guid: 21505cb8b98d00440a7df5bf18d53a0d, type: 3}
+  - m_category: Foundation
+    m_buildingParts:
+    - {fileID: 523435340318817336, guid: ab3c7ae5ce9f26e4bbf2d1a0edaff205, type: 3}
+    - {fileID: 159486734597987364, guid: ab3c7ae5ce9f26e4bbf2d1a0edaff205, type: 3}
+    - {fileID: 4487619920636149842, guid: 7f1695fd9baae4a41a2835eb8dc06ae5, type: 3}
+    - {fileID: 523435340318817336, guid: caf28095fa4ac4a40b9b76d82b510ca5, type: 3}
+    - {fileID: 5082972703175497372, guid: a3280d07d64dba743bb2553a153adb9f, type: 3}
+  - m_category: Props
+    m_buildingParts:
+    - {fileID: 3339739244769595038, guid: 8436a30f170ec3144b0f3ad650f6c943, type: 3}
+    - {fileID: 6387961733844723644, guid: 2ab198e423a0b54488e47dc74c48e821, type: 3}
+    - {fileID: 1775526537485793990, guid: cadca9fb14816fc48867db8d53de4cf3, type: 3}
+    - {fileID: 8111697142458859078, guid: e1114b1106f708e4085f32bad5c63cdf, type: 3}
+    - {fileID: 2998918411707789331, guid: d37bb5a7d05ee8746a23d87f2f47546f, type: 3}
+    - {fileID: 4096662471409389805, guid: 3ba5f18cc4fa356468082574a203c131, type: 3}
+    - {fileID: 8381275883664985274, guid: 276ebd2e3b318e84ba13a7382b8f9d58, type: 3}
+    - {fileID: 7891435923184533573, guid: 40cb6d4f4a789ff47bf3f36e5f22921f, type: 3}
+    - {fileID: 4948871195653569297, guid: 7e8e846d3e2ac424bad32789ad0d1fe0, type: 3}
+    - {fileID: 8759916806271524524, guid: 633c733c164f17b47ae1249bb1fdb6d7, type: 3}
+    - {fileID: 8415072407418103783, guid: e869d65f5a9b93f45a26937b510734a4, type: 3}
+    - {fileID: 8522085066683634658, guid: fae3ba80723f79242b67da39a67a907f, type: 3}
+    - {fileID: 6645395868667931921, guid: 0918a83c32eaf4a46b15a653eaec6487, type: 3}
+    - {fileID: 2516221550238511459, guid: 9212f2aacd3983b418308c7460c74663, type: 3}
+    - {fileID: 6938769152386486094, guid: 81684befc9a75014986e0d7b13260172, type: 3}
+    - {fileID: 5395918088217750131, guid: 3927fbf0b4640e242a43ff0903b61d17, type: 3}
+    - {fileID: 1998307178266789291, guid: 5b70b9b4c5008e3478c647add6d00220, type: 3}
+    - {fileID: 6299831536631513623, guid: 7ed69803959dd664cbbf38ee000673f5, type: 3}
+    - {fileID: 3701151192523247744, guid: cfe95ad0646c32449953dcf3a5e6e219, type: 3}
+    - {fileID: 8018364602933717930, guid: df04e2398b506684b940c588c9844a3a, type: 3}
+    - {fileID: 4425188620543328163, guid: 6b2431f2d01605249b5557d25c45e1a1, type: 3}
+    - {fileID: 1498830221670947097, guid: 5f31362057074f64ea7a2dbb33310d3e, type: 3}
+    - {fileID: 6219415451187576761, guid: ec5312b1252d3f5438c75b82549db889, type: 3}
+    - {fileID: 2910135263743367036, guid: 5da00c5ea9a2ce04386feebf526180d8, type: 3}
+    - {fileID: 3967248222967162266, guid: efbe14e30b2bc3247a9fd646cce86367, type: 3}
+    - {fileID: 7983646038358051262, guid: 5aaaf21004ee00143817bea576130094, type: 3}
+    - {fileID: 3029386441242838573, guid: 7ff570052d14a5546b92cab8d8b50d70, type: 3}
+    - {fileID: 5526463885582386423, guid: 85cfd7ceb0fb5cc4086ae667c3c92c95, type: 3}
+    - {fileID: 4034448425724649500, guid: ec2674bd4b7b7cd459883b60a1ae0b16, type: 3}
+    - {fileID: 5677125736323089135, guid: ab12efd7742cb904a8ccff27ffebea82, type: 3}
+    - {fileID: 5078247977204041206, guid: ac3c16a3b0893254eb1ea4360d4829ed, type: 3}
+    - {fileID: 571724776544969245, guid: 2f08c7b0706561643a3fdc3d4b132364, type: 3}
+    - {fileID: 8020934110849913576, guid: aab6c2206dfd76142880b72189e6b1d4, type: 3}
+    - {fileID: 5279956582618876292, guid: e55aba0995de5724683b80715f157162, type: 3}
+    - {fileID: 7323463832880827483, guid: e18df356d2856de46953aced4844302c, type: 3}
+    - {fileID: 2527469143401812809, guid: 60b11040d623cf94298e306b550f9635, type: 3}
+    - {fileID: 3339739244769595038, guid: c54831f093fa643429eb8dbaec14c1a9, type: 3}
+  - m_category: Stair
+    m_buildingParts:
+    - {fileID: 1934337984835723233, guid: 11c5e65b4510e5241bbcce6b68af2e6c, type: 3}
+    - {fileID: 5973432836376199475, guid: 9b9093116966dbc48b10d38161a9fd3f, type: 3}
+    - {fileID: 1934337984835723233, guid: 6ab3c777d0e72d7498f11746926d6380, type: 3}
+    - {fileID: 6892776059866588814, guid: 0cae3b27083292149b95b82b22f1bc9b, type: 3}
+  - m_category: Triangle Floor
+    m_buildingParts:
+    - {fileID: 4793705043374056825, guid: 00448face0180f04f825662fa29dd20f, type: 3}
+    - {fileID: 6859477129322312959, guid: 0f0dcd330f2ecdb44b064ce83da93dfc, type: 3}
+    - {fileID: 4793705043374056825, guid: f679da7ffbc8018459f6f490c50e3053, type: 3}
+  - m_category: Triangle Foundation
+    m_buildingParts:
+    - {fileID: 3849042604250516605, guid: 012f7f143eed31b47a01ab5c980c113c, type: 3}
+    - {fileID: 5704939908961791095, guid: f31614d21265fe941952eca91529be69, type: 3}
+    - {fileID: 3849042604250516605, guid: de267a0118e54e64d9097d7047fe834e, type: 3}
+  - m_category: Wall
+    m_buildingParts:
+    - {fileID: 3829777568610371953, guid: bff0052515d4c4f44a243a4099df54a7, type: 3}
+    - {fileID: 3135622228091317863, guid: 6eec456866734b04fad482147472921a, type: 3}
+    - {fileID: 6541632570870468470, guid: bd9c9a517f1991449904539a4a82a040, type: 3}
+    - {fileID: 7316052942748918516, guid: bd861a7b3c3d05e40b8dc65109ae6cc4, type: 3}
+    - {fileID: 884358886680538456, guid: 3649048228f39da45a37a529d301be04, type: 3}
+    - {fileID: 3829777568610371953, guid: eb3d72e7d3bf6414bb79ffe5bd671e76, type: 3}
+    - {fileID: 6541632570870468470, guid: b38a140604785a1449e8572a76ac4864, type: 3}
+    - {fileID: 8893988498456128947, guid: 68ea69aca2b5f194c9cf800d6d530b41, type: 3}
+    - {fileID: 6391695486262022837, guid: 0e4dd9684f488e345b4656d5b463748e, type: 3}
+    - {fileID: 7316052942748918516, guid: c025898837d27004486a54cf85275231, type: 3}
+    - {fileID: 3986874132318623332, guid: 6ac3ed1d26f67b64ebf0e71e8c534eb7, type: 3}
+    - {fileID: 3210419129380597916, guid: c0464ca226ca6b9448c345632f0dc892, type: 3}
+    - {fileID: 933981816689300950, guid: c4b90ab0ff6e8f74191f80b18406ee43, type: 3}
+    - {fileID: 3135622228091317863, guid: 2467071e30e0ea74b960526cf7b1eabc, type: 3}

@@ -1,0 +1,31 @@
+{
+    "name": "MindCodeInteractive.EasyBuildSystem.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:19642377b7381574d8de8f2e694f21fb",
+        "GUID:864aca13068ccfa4e8806cf6be9708de",
+        "GUID:75325cdbbf608e04690949c7da943d22",
+        "GUID:94ba3d474f1fef64db13dd931445f32f",
+        "GUID:ce1c49e3c897ad94a91f91b75bbf0468",
+        "GUID:d1a5f55715d577643a761173a8025eeb",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:8c4dd21966739024fbd72155091d199e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.ai.navigation",
+            "expression": "",
+            "define": "UNITY_AI_NAVIGATION"
+        }
+    ],
+    "noEngineReferences": false
+}
