@@ -824,7 +824,7 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Standalone: UNITY_PIPELINE_URP;UNITY_URP;EASY_BUILD_SYSTEM
+    Standalone: UNITY_PIPELINE_URP;UNITY_URP;EASY_BUILD_SYSTEM;__DIGGER__;__DIGGER_ADVANCED_OPERATIONS__;__DIGGER_RUNTIME__
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -921,7 +921,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
   cloudProjectId: 689994cc-a6b9-4560-95ff-e48c22cea268

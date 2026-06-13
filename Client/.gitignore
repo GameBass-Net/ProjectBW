@@ -114,3 +114,18 @@ InitTestScene*.unity*
 !/Packages/manifest.json
 !/Packages/packages-lock.json
 
+
+
+
+.vscode/*
+# Digger Pro 에셋 청크 데이터
+Assets/DiggerData/*
+
+# Unity 라이팅 베이크 데이터(씬별 자동 생성, 재생성 가능)
+**/LightingData.asset*
+**/ReflectionProbe-*.exr*
+**/Lightmap-*.exr*
+**/Lightmap-*.png*
+
+# Scene Template 에디터 설정(개인 환경에 가까움)
+/ProjectSettings/SceneTemplateSettings.json
