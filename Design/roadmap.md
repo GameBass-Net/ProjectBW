@@ -38,6 +38,25 @@
 
 → **첫 마일스톤 = 1+2.** R2가 가장 novel한 통합 위험이라 스트리밍 전에 단일 존에서 먼저 깸. 스폰/상호작용(6)은 월드 토대(1~5) 검증 후.
 
+## 마일스톤 1+2 태스크 분해
+
+### M1 — 생성 코어 `BW.WorldGen.Core` (순수 C#)
+- **T1.1** asmdef 생성(`Assets/_Core/WorldGen`) + FastNoiseLite 벤더링 + MT RNG 편입.
+- **T1.2** Config(plain C#): worldSeed, zoneSize=128, 하이트맵 해상도, seaLevel, 레이어별 노이즈 파라미터.
+- **T1.3** 필드 샘플러: Continentalness/Elevation/Temperature/Moisture (전역좌표, 시드 오프셋; Erosion 생략).
+- **T1.4** `BiomeClassifier.BiomeAt(worldPos)`: 대륙도→바다/육지, 육지면 고도+온도+습도→바이옴 가중치(연속 블렌딩).
+- **T1.5** 높이 합성: 베이스 고도 + 바이옴 가중 셰이핑 → 사각 영역 `HeightField`. (P1 섬=명시적 반경 마스크)
+- **T1.6** 검증: 그리드 샘플 → PNG/CSV로 하이트맵·바이옴맵 덤프, 에디터에서 눈으로 확인.
+
+### M2 — 단일 존 `BW.WorldGen.Unity` (에디터 타임)
+- **T2.1** asmdef 생성(`Assets/_ProjectBW/Scripts/WorldGen`), Core+Digger 참조.
+- **T2.2** `ZoneBuilder` 에디터 메뉴: TerrainData + `SetHeights`(코어 HeightField) → Terrain GO.
+- **T2.3** Terrain layers 7장 등록 + `SetAlphamaps`(바이옴 가중치 + 경사 규칙).
+- **T2.4** Digger 셋업(템플릿) + 단순 동굴 1개 Modify 카빙.
+- **T2.5** 검증: 지형/바이옴 텍스처/동굴 확인 + 캐릭터 보행(Suriyun/FlyCamera 재사용).
+
+→ 착수 순서: T1.1 → … → T1.6(코어 눈으로 확인) → T2.1 → … → T2.5.
+
 ## 프로토타입 잠정 파라미터
 - **존 크기**: **한 변 128m**(시야거리 보고 조정).
 - **스트리밍 반경**: 3×3. (P1 섬이 작아 실제로는 거의 전부 로드)

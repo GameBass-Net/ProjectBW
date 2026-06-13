@@ -13,6 +13,7 @@
 | [tech/server-networking.md](tech/server-networking.md) | 데디서버/네트코드 (추후) |
 | [assets.md](assets.md) | 에셋 후보·도입 현황 |
 | [roadmap.md](roadmap.md) | 프로토타입 범위·빌드 순서·마일스톤 |
+| [TODO.md](TODO.md) | 실행 체크리스트(현재 마일스톤 태스크) |
 
 ## 현재 상태
 - **완성 기준 = 프로토타입** (싱글 클라, "그럴싸함 먼저, 디테일 후순위").

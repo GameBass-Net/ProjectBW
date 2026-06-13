@@ -16,6 +16,15 @@
 - 베이스 높이·연속 디테일·바이옴 필드는 **전역 월드좌표**로 평가(C3). 시드는 `worldSeed` 단일, 존 시드는 이산 콘텐츠 전용.
 - 생성 코어 = 엔진 비종속 순수 C#(D2/D8), 출력 = 정규 데이터(하이트필드+바이옴 가중치+동굴 SDF)+깔끔한 API.
 
+## 구현 구조 (모듈 / asmdef)
+- **`BW.WorldGen.Core`** → `Assets/_Core/WorldGen/`. 순수 C#, **UnityEngine 의존 0.**
+  - 노이즈 = **FastNoiseLite(포터블 C#)** — Unity.Mathematics.noise 대신(재구현·결정성 유리).
+  - MT RNG, 필드(대륙도/고도/온도/습도; Erosion은 P1 고도로 퉁), `BiomeClassifier.BiomeAt()`, `CaveField`(SDF), 출력 구조, plain C# Config.
+  - 벡터/수학은 Unity.Mathematics 사용 가능하되 **GameObject/Terrain 등 엔진 객체는 금지.** Burst fast-math는 결정성 위해 주의/보류.
+- **`BW.WorldGen.Unity`** → `Assets/_ProjectBW/Scripts/WorldGen/`. UnityEngine + Digger 참조.
+  - `ZoneBuilder`(코어 질의→Terrain/splat/Digger), `WorldManager`(존 그리드+육지 마스크, P1 정적 로드).
+- **프로토타입은 코어를 소스 asmdef로**(DLL 아님, 반복 빠름). 포팅 시 **`netstandard2.1`(+`net10.0` 멀티타깃)** DLL로 추출 — Unity는 ns2.1, 서버는 net10. (Unity 6은 net10 어셈블리 못 불러옴)
+
 ## D2. 생성 엔진 — 커스텀 순수 C# 코어 (확정)
 - **생성 코어 = 엔진 비종속 순수 C# 직접 구현.** Unity 종속 생성 에셋 미사용.
 - 이유: 서버 포팅 가드레일(순수 C#)과 일관 + 생성 방식 이해/통제 + MT 직접 구현과 결.
