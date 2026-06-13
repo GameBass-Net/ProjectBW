@@ -26,10 +26,11 @@ Design/
 ## 코드 구조
 
 - **Unity 프로젝트**: `Client/` (Unity 6000.4 / URP 17.4).
-- **엔진 비종속 코어 라이브러리**: `Core/` (Unity 밖 독립 .NET 솔루션 `GameBassLib.sln`).
-  - `Bass.Core` (멀티타깃 `netstandard2.1;net10.0`, 순수 C#, UnityEngine·Unity.Mathematics 의존 0) — 결정성 필요한 로직(절차 생성 등). 향후 서버 포팅 대비.
-  - `Bass.Core.Test` (xUnit, net10) — `dotnet test`로 검증.
-  - **Unity 연동**: Release/`netstandard2.1` 빌드 DLL을 **수동으로** `Client/Assets/Plugins/Bass.Core.dll`에 복사·커밋. Unity는 Plugins의 DLL만 사용(빌드 파이프라인에 넣지 않음).
+- **엔진 비종속 코어 라이브러리**: `Core/` (Unity 밖 독립 .NET 솔루션 `GameBassLib.sln`). 모두 멀티타깃 `netstandard2.1;net10.0`, 순수 C#(UnityEngine·Unity.Mathematics 의존 0). 향후 서버 포팅 대비.
+  - `Bass.Core` — 컨텐츠 비종속 범용(MT, FastNoiseLite 등). 테스트 `Bass.Core.Test`(xUnit).
+  - `Bass.BW` — 컨텐츠 종속(월드생성 `Bass.BW.WorldGeneration` 등), `Bass.Core` 참조. 테스트 `Bass.BW.Test`(xUnit).
+  - 검증: `dotnet test`.
+  - **Unity 연동**: Release/`netstandard2.1` 빌드 DLL(`Bass.Core.dll` + `Bass.BW.dll`)을 **수동으로** `Client/Assets/Plugins/`에 복사·커밋. Unity는 Plugins의 DLL만 사용(빌드 파이프라인에 넣지 않음).
 - 작업 체크리스트는 `Design/TODO.md`, 구현 구조 상세는 `Design/tech/world-generation.md`.
 
 ## 작업 환경

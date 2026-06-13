@@ -19,13 +19,11 @@
 ## 구현 구조 (모듈)
 **코어는 Unity 밖 독립 .NET 솔루션.** Unity는 빌드된 DLL만 참조.
 
-- **`Bass.Core`** → `ProjectBW/Core/Bass.Core/` (솔루션 `GameBassLib.sln`). 순수 C#, **UnityEngine·Unity.Mathematics 의존 0.**
-  - 멀티타깃 **`netstandard2.1;net10.0`** (Unity=ns2.1, 서버=net10). ImplicitUsings 비활성, Nullable enable.
-  - `Bass.Core.MersenneTwister`(std::mt19937 호환), 전역 `FastNoiseLite`(벤더링), `Bass.Core.WorldGeneration.*`(필드/`BiomeAt`/`CaveField`/`WorldGenerator`/Config/출력 구조).
-  - 벡터/수학 필요 시 `System.Numerics` 또는 자체 구현(Unity.Mathematics 미사용 — 포팅성). Burst 미사용(결정성).
-- **테스트** → `Bass.Core.Test`(xUnit, net10). `dotnet test`로 검증, Unity 밖.
-- **DLL 전달**: Release/ns2.1 산출물을 **수동으로** `Client/Assets/Plugins/Bass.Core.dll`에 복사·커밋(빌드 파이프라인 X). Unity는 이 DLL만 사용.
-  - 예: `dotnet build Core/Bass.Core -c Release -f netstandard2.1` → `bin/Release/netstandard2.1/Bass.Core.dll` → `Client/Assets/Plugins/`.
+솔루션 `ProjectBW/Core/GameBassLib.sln`, 모두 멀티타깃 **`netstandard2.1;net10.0`**, ImplicitUsings 비활성, Nullable enable, 벡터/수학은 `System.Numerics`/자체(Unity.Mathematics 미사용), Burst 미사용(결정성).
+- **`Bass.Core`** (컨텐츠 비종속 범용) → `Core/Bass.Core/`. `Bass.Core.MersenneTwister`(std::mt19937 호환), 전역 `FastNoiseLite`(벤더링). 테스트 `Bass.Core.Test`(xUnit).
+- **`Bass.BW`** (컨텐츠 종속) → `Core/Bass.BW/`. **`Bass.Core` 참조.** `Bass.BW.WorldGeneration.*`(필드/`BiomeAt`/`CaveField`/`WorldGenerator`/Config/`EBiomeId`/출력 구조). 테스트 `Bass.BW.Test`(xUnit).
+- **DLL 전달**: Release/ns2.1 산출물(`Bass.Core.dll` + `Bass.BW.dll`)을 **수동으로** `Client/Assets/Plugins/`에 복사·커밋(빌드 파이프라인 X). Unity는 이 DLL들만 사용.
+  - 예: `dotnet build Core/Bass.BW -c Release -f netstandard2.1` → `Bass.BW/bin/Release/netstandard2.1/{Bass.Core,Bass.BW}.dll` → `Client/Assets/Plugins/`.
 - **Unity 통합 레이어**(M2) → `Client/Assets/_ProjectBW/Scripts/...`. `Bass.Core.dll`(Plugins) + Digger 참조. `ZoneBuilder`(코어 질의→Terrain/splat/Digger), `WorldManager`(존 그리드+육지 마스크, P1 정적 로드). (asmdef/ns명 M2에서 확정)
 
 ## D2. 생성 엔진 — 커스텀 순수 C# 코어 (확정)

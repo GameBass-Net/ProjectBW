@@ -5,10 +5,12 @@
 
 ---
 
-## M1 — 생성 코어 `Bass.Core` (Unity 밖 독립 .NET 솔루션, 순수 C#)
+## M1 — 생성 코어 (Unity 밖 독립 .NET 솔루션, 순수 C#)
 
-> 위치 `ProjectBW/Core/` · 솔루션 `GameBassLib.sln` · 코어 `Bass.Core`(ns2.1;net10 멀티타깃) · 테스트 `Bass.Core.Test`(xUnit/net10).
-> 빌드: `dotnet test`로 검증. Release/ns2.1 빌드 산출 DLL을 **수동으로** `Client/Assets/Plugins/Bass.Core.dll`에 복사·커밋. Unity는 Plugins DLL만 사용.
+> 위치 `ProjectBW/Core/` · 솔루션 `GameBassLib.sln` (모두 ns2.1;net10 멀티타깃)
+> - **`Bass.Core`** = 컨텐츠 비종속 범용(MT·FastNoiseLite). 테스트 `Bass.Core.Test`(xUnit).
+> - **`Bass.BW`** = 컨텐츠 종속(월드생성, ns `Bass.BW.WorldGeneration`). **`Bass.Core` 참조.** 테스트 `Bass.BW.Test`(xUnit).
+> 빌드: `dotnet test`로 검증. Release/ns2.1 산출 DLL(`Bass.Core.dll` + `Bass.BW.dll`)을 **수동으로** `Client/Assets/Plugins/`에 복사·커밋. Unity는 Plugins DLL만 사용.
 
 ### T0. 솔루션 셋업 ✅
 - [x] `Core/GameBassLib.sln` + `Bass.Core`(ns2.1;net10, ImplicitUsings 비활성, Nullable enable) + `Bass.Core.Test`(xUnit).
@@ -25,9 +27,10 @@
 - [ ] 래퍼 → **T4 필드 샘플러**에서 타입/주파수/옥타브/시드 캡슐화 예정.
 - [x] 결정성 확인: 같은 시드·좌표 동일 + [-1,1] 범위 + 다른시드 분기 (xUnit 통과).
 
-### T3. 데이터 구조 / Config (ns `Bass.Core.WorldGeneration`)
-- [ ] `EBiomeId` enum(초원/설산/사막/암석/Ocean — `E` 접두사 컨벤션), `BiomeWeights`, `HeightField`(w·h·float[]).
-- [ ] `WorldGenConfig`(plain C#): worldSeed, zoneSize=128, 하이트맵 해상도, seaLevel, 레이어별 노이즈 파라미터.
+### T3. 데이터 구조 / Config (`Bass.BW`, ns `Bass.BW.WorldGeneration`) ✅
+- [x] `EBiomeId`(초원/설산/사막/암석/Ocean), `BiomeWeights`(readonly struct, 고정필드+인덱서+Dominant/Sum, 무할당), `HeightField`(정규화[0,1] row-major).
+- [x] `WorldGenConfig`: WorldSeed, ZoneSize=128, HeightmapResolution=129, SeaLevel, MaxHeight. (레이어 노이즈·섬마스크 파라미터는 T4~T6에서 추가)
+- [x] `Bass.BW.Test` 8/8 통과(BiomeWeights 4, HeightField 4).
 
 ### T4. 필드 샘플러 (전역좌표 입력)
 - [ ] `Continentalness / Elevation / Temperature / Moisture` — 각 FastNoiseLite(레이어 시드), `Sample(worldX, worldZ)`. (Erosion P1 생략)
@@ -42,9 +45,10 @@
 - [ ] 그리드 샘플 → PNG/CSV(하이트맵 그레이스케일 + 바이옴맵 컬러). 콘솔 앱 또는 테스트로.
 - [ ] 시드 바꿔가며 그럴싸한지 확인 → **"절차 생성 작동" 1차 증명.**
 
-### T8. 테스트 (xUnit, `Bass.Core.Test`) ✅(진행 중)
-- [x] `Bass.Core.Test` 생성 + MT 4 + FastNoiseLite 3 테스트, `dotnet test` 7/7 통과.
-- [ ] 노이즈/`BiomeAt`/높이합성 테스트는 해당 단계에서 추가.
+### T8. 테스트 (xUnit) ✅(진행 중)
+- [x] `Bass.Core.Test`: MT 4 + FastNoiseLite 3, `dotnet test` 7/7 통과.
+- [x] `Bass.BW.Test` 프로젝트 생성(→ Bass.BW 참조). 솔루션 4프로젝트 빌드 0경고.
+- [ ] `BiomeAt`/높이합성 등 월드생성 테스트는 `Bass.BW.Test`에 해당 단계에서 추가.
 
 ---
 
