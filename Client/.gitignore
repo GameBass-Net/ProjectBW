@@ -110,3 +110,7 @@ InitTestScene*.unity*
 #  무시하므로 명시적으로 예외 처리)
 !/Packages/com.unity.toonshader/
 
+# Unity 패키지 의존성 명세/락 파일도 추적한다(표준 Unity 설정).
+!/Packages/manifest.json
+!/Packages/packages-lock.json
+
