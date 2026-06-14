@@ -4,9 +4,9 @@ using Xunit;
 namespace Bass.Core.Test
 {
     /// <summary>
-    /// <see cref="MersenneTwister"/> 결정성·표준 적합성 테스트.
+    /// <see cref="MT19937"/> 결정성·표준 적합성 테스트.
     /// </summary>
-    public sealed class MersenneTwisterTests
+    public sealed class MT19937Tests
     {
         /// <summary>
         /// C++ 표준이 명시한 적합성 값: 시드 5489로 10000번째 출력은 4123659995.
@@ -15,7 +15,7 @@ namespace Bass.Core.Test
         [Fact]
         public void NextUInt_Seed5489_10000thValueMatchesStdMt19937()
         {
-            var mt = new MersenneTwister(5489u);
+            var mt = new MT19937(5489u);
             uint value = 0u;
             for (int i = 0; i < 10000; i++)
             {
@@ -27,8 +27,8 @@ namespace Bass.Core.Test
         [Fact]
         public void NextUInt_SameSeed_ProducesIdenticalSequence()
         {
-            var a = new MersenneTwister(12345u);
-            var b = new MersenneTwister(12345u);
+            var a = new MT19937(12345u);
+            var b = new MT19937(12345u);
             for (int i = 0; i < 1000; i++)
             {
                 Assert.Equal(a.NextUInt(), b.NextUInt());
@@ -38,19 +38,55 @@ namespace Bass.Core.Test
         [Fact]
         public void NextUInt_DifferentSeeds_ProduceDifferentFirstValue()
         {
-            var a = new MersenneTwister(1u);
-            var b = new MersenneTwister(2u);
+            var a = new MT19937(1u);
+            var b = new MT19937(2u);
             Assert.NotEqual(a.NextUInt(), b.NextUInt());
         }
 
         [Fact]
         public void NextRange_ManyDraws_AlwaysWithinBounds()
         {
-            var mt = new MersenneTwister(777u);
+            var mt = new MT19937(777u);
             for (int i = 0; i < 10000; i++)
             {
                 int v = mt.NextRange(5, 10);
                 Assert.True(v >= 5 && v < 10);
+            }
+        }
+
+        [Fact]
+        public void NextRange_MinEqualsMax_ReturnsThatValue()
+        {
+            var mt = new MT19937(1u);
+            Assert.Equal(7, mt.NextRange(7, 7));
+        }
+
+        [Fact]
+        public void NextRange_ReversedBounds_StaysWithinSwappedRange()
+        {
+            var mt = new MT19937(2u);
+            for (int i = 0; i < 10000; i++)
+            {
+                int v = mt.NextRange(10, 5); // 스왑되어 [5, 10)
+                Assert.True(v >= 5 && v < 10);
+            }
+        }
+
+        [Fact]
+        public void NextInt_Zero_ReturnsZero()
+        {
+            var mt = new MT19937(3u);
+            Assert.Equal(0, mt.NextInt(0));
+        }
+
+        [Fact]
+        public void NextInt_Positive_StaysWithinBounds()
+        {
+            var mt = new MT19937(4u);
+            for (int i = 0; i < 10000; i++)
+            {
+                int v = mt.NextInt(8);
+                Assert.True(v >= 0 && v < 8);
             }
         }
     }

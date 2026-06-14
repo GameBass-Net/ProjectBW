@@ -18,9 +18,9 @@
 - [x] Release/ns2.1 DLL → `Client/Assets/Plugins/Bass.Core.dll` 배치, Unity 로드 에러 0.
 
 ### T1. MT (Mersenne Twister) ✅
-- [x] `Bass.Core.MersenneTwister`(std::mt19937 32비트 호환). API: `Seed(uint)`/`NextUInt`/`NextFloat01`/`NextDouble01`/`NextInt`/`NextRange`.
-- [ ] 레이어별 스트림 분리 → **T4 필드 생성 시** worldSeed+레이어 상수로 시드 파생(MT 인스턴스 분리). MT측 준비 완료.
-- [x] 결정성 확인: 시드 5489 10000번째=4123659995(std 적합) + 같은시드 동일 (xUnit 통과).
+- [x] `Bass.Core.MT19937`(std::mt19937 32비트 호환) + `Bass.Core.MT19937_64`(std::mt19937_64 64비트 호환). API: Seed/Next(U)Int·ULong/NextFloat01/NextDouble01/NextInt/NextRange(관대 동작: 동일→반환, 역전→스왑).
+- [ ] 레이어별 스트림 분리 → **T4 필드 생성 시** worldSeed+레이어 상수로 시드 파생(인스턴스 분리). 준비 완료.
+- [x] 결정성 확인(xUnit): 32비트 10000번째=4123659995, 64비트 10000번째=9981545732273789042 (둘 다 C++ 표준 적합) + 같은시드 동일.
 
 ### T2. FastNoiseLite 이식 ✅
 - [x] 벤더링: 공식 원본(Auburn/FastNoiseLite, MIT 헤더 유지) → `Bass.Core`. 전역 `FastNoiseLite` 클래스(그대로).
@@ -46,7 +46,7 @@
 - [ ] 시드 바꿔가며 그럴싸한지 확인 → **"절차 생성 작동" 1차 증명.**
 
 ### T8. 테스트 (xUnit) ✅(진행 중)
-- [x] `Bass.Core.Test`: MT 4 + FastNoiseLite 3, `dotnet test` 7/7 통과.
+- [x] `Bass.Core.Test`: MT19937 7 + MT19937_64 6 + FastNoiseLite 3 = 16, `dotnet test` 통과.
 - [x] `Bass.BW.Test` 프로젝트 생성(→ Bass.BW 참조). 솔루션 4프로젝트 빌드 0경고.
 - [ ] `BiomeAt`/높이합성 등 월드생성 테스트는 `Bass.BW.Test`에 해당 단계에서 추가.
 

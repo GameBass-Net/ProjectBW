@@ -1,5 +1,3 @@
-using System;
-
 namespace Bass.Core
 {
     /// <summary>
@@ -9,7 +7,7 @@ namespace Bass.Core
     /// 월드 생성의 결정성(같은 시드 → 같은 월드) 보장을 위해, 생성 코어의 모든 난수는 이 클래스로만 뽑는다.<br/>
     /// 상태를 가지므로 클래스(참조 타입)이며, 레이어별 독립 스트림이 필요하면 인스턴스를 분리해 사용한다.
     /// </summary>
-    public sealed class MersenneTwister
+    public sealed class MT19937
     {
         // --- MT19937 표준 상수 ---
         private const int N = 624;
@@ -22,14 +20,14 @@ namespace Bass.Core
         private int _mti = N + 1;                  // _mti == N+1 이면 미시딩 상태
 
         /// <summary>기본 시드(5489)로 초기화한다. <c>std::mt19937</c>의 기본 생성자와 동일.</summary>
-        public MersenneTwister()
+        public MT19937()
         {
             Seed(5489u);
         }
 
         /// <summary>지정한 32비트 시드로 초기화한다.</summary>
         /// <param name="seed">초기 시드. <c>std::mt19937</c>의 단일 값 시딩과 동일하게 처리된다.</param>
-        public MersenneTwister(uint seed)
+        public MT19937(uint seed)
         {
             Seed(seed);
         }
@@ -111,26 +109,33 @@ namespace Bass.Core
             return NextUInt() * (1.0 / 4294967296.0);
         }
 
-        /// <summary>[0, maxExclusive) 범위의 정수 난수를 반환한다(모듈로 편향 없는 리젝션 샘플링).</summary>
-        /// <param name="maxExclusive">상한(미포함). 1 이상이어야 한다.</param>
+        /// <summary>
+        /// [0, maxExclusive) 범위의 정수 난수를 반환한다. <see cref="NextRange(int, int)"/>의 0-기반 편의 함수.<br/>
+        /// maxExclusive가 0이면 0을 반환하고, 음수면 [maxExclusive, 0) 구간으로 처리된다(NextRange의 관대한 동작을 그대로 따름).
+        /// </summary>
+        /// <param name="maxExclusive">상한(미포함).</param>
         public int NextInt(int maxExclusive)
         {
-            if (maxExclusive <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxExclusive), "maxExclusive는 1 이상이어야 한다.");
-            }
             return NextRange(0, maxExclusive);
         }
 
-        /// <summary>[minInclusive, maxExclusive) 범위의 정수 난수를 반환한다(모듈로 편향 없는 리젝션 샘플링).</summary>
+        /// <summary>
+        /// [minInclusive, maxExclusive) 범위의 정수 난수를 반환한다(모듈로 편향 없는 리젝션 샘플링).<br/>
+        /// 두 값이 같으면 그 값을 반환하고, 역전(min &gt; max)되면 두 값을 스왑해 처리한다(예외 없음).
+        /// </summary>
         /// <param name="minInclusive">하한(포함).</param>
-        /// <param name="maxExclusive">상한(미포함). minInclusive보다 커야 한다.</param>
+        /// <param name="maxExclusive">상한(미포함).</param>
+        /// <remarks>
+        /// 범위 폭(max-min)이 int 한계를 넘는 극단 입력(예: int 전체 구간)은 내부 뺄셈 오버플로로 결과가 정의되지 않는다.
+        /// 정상적 사용 범위에서는 무관하다.
+        /// </remarks>
         public int NextRange(int minInclusive, int maxExclusive)
         {
-            if (maxExclusive <= minInclusive)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxExclusive), "maxExclusive는 minInclusive보다 커야 한다.");
-            }
+            if (minInclusive == maxExclusive)
+                return minInclusive;
+
+            if (minInclusive > maxExclusive)
+                (minInclusive, maxExclusive) = (maxExclusive, minInclusive);
 
             uint range = (uint)(maxExclusive - minInclusive);
             // threshold == 2^32 % range. r < threshold인 구간을 버려 균등 분포를 유지한다.
