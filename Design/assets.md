@@ -1,5 +1,13 @@
 # 에셋 후보 / 도입 현황
 
+## 에셋 사용 문서 인덱스
+에셋별 사용법·주의사항·Claude 작업 지침은 `Design/assets/`에 모음. 작성 규칙은 [assets/_guide.md](assets/_guide.md).
+
+| 에셋 | 사람용 메모 | Claude 소비자 문서 | 벤더/공식 문서 |
+|---|---|---|---|
+| Digger Pro | [digger.md](assets/digger.md) | [digger.claude.md](assets/digger.claude.md) | [벤더 CLAUDE.md](../Client/Assets/Digger/CLAUDE.md) · [Documentation/](../Client/Assets/Digger/Documentation/) |
+| Easy Build System | [easy-build-system.md](assets/easy-build-system.md) | [easy-build-system.claude.md](assets/easy-build-system.claude.md) | [gitbook](https://mindcodeinteractive.gitbook.io/easy-build-system) |
+
 ## 보유(설치됨)
 - **Digger Pro**(런타임 포함) — 복셀 지형 변형/동굴. 런타임 `SetupRuntimeTerrain`/`Modify` 사용 예정.
 - **Suriyun** — 툰/SD 캐릭터.

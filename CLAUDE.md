@@ -32,6 +32,7 @@ Design/
   - 검증: `dotnet test`.
   - **Unity 연동**: Release/`netstandard2.1` 빌드 DLL(`Bass.Core.dll` + `Bass.BW.dll`)을 **수동으로** `Client/Assets/Plugins/`에 복사·커밋. Unity는 Plugins의 DLL만 사용(빌드 파이프라인에 넣지 않음).
 - 작업 체크리스트는 `Design/TODO.md`, 구현 구조 상세는 `Design/tech/world-generation.md`.
+- 외부 에셋(Digger·Easy Build System 등)을 사용해 작업할 때는 `Design/assets.md`의 "에셋 사용 문서 인덱스"를 먼저 참조한다(에셋별 Claude 소비자 문서 `Design/assets/*.claude.md`). 작성 규칙은 `Design/assets/_guide.md`.
 
 ## 작업 환경
 

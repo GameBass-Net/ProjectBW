@@ -11,7 +11,8 @@
 | [tech/world-generation.md](tech/world-generation.md) | 절차적 월드 생성 설계 (본체) |
 | [tech/feasibility.md](tech/feasibility.md) | 기술 검증 체크리스트(트래커) |
 | [tech/server-networking.md](tech/server-networking.md) | 데디서버/네트코드 (추후) |
-| [assets.md](assets.md) | 에셋 후보·도입 현황 |
+| [assets.md](assets.md) | 에셋 후보·도입 현황 + 에셋 사용 문서 인덱스 |
+| [assets/](assets/) | 에셋별 사용 문서(사람용 메모 / Claude 소비자 문서). 규칙 [assets/_guide.md](assets/_guide.md) |
 | [roadmap.md](roadmap.md) | 프로토타입 범위·빌드 순서·마일스톤 |
 | [TODO.md](TODO.md) | 실행 체크리스트(현재 마일스톤 태스크) |
 
@@ -31,3 +32,4 @@
 | D7 | 영속성 = 시드 재생성+델타만 저장, 근처 존만, 러프HM은 저장(원경 LOD) | world-generation |
 | D8 | 서버 = 프로토타입 보류·싱글 클라. 가드레일=생성코어 순수 C#. MT 결정성 해결 | server-networking |
 | NFR | 저사양 타깃 + 툰/SD 아트 + 연산 최소 + 최초 생성 1회성 비용 허용 | 02-requirements |
+| D9 | 에셋 사용 문서 = `Design/assets/`에 집약, 사람용 메모/Claude 소비자 문서(`*.claude.md`) 분리, 벤더문서는 링크만(에셋 폴더 덮어쓰기 회피) | assets/_guide |
