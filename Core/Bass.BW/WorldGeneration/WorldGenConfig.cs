@@ -33,6 +33,9 @@ namespace Bass.BW.WorldGeneration
             new NoiseLayerSettings(), // Moisture
         };
 
+        /// <summary>바이옴 분류(<see cref="BiomeClassifier"/>) 튜닝 파라미터.</summary>
+        public BiomeClassifierSettings Biome { get; set; } = new BiomeClassifierSettings();
+
         // --- P1 섬 마스크 파라미터는 T6에서 추가 ---
     }
 }

@@ -35,8 +35,8 @@
 ### T4. 필드 샘플러 (전역좌표 입력) ✅
 - [x] `Continentalness / Elevation / Temperature / Moisture`(`EFieldLayer`) — 단일 래퍼 `NoiseField`(레이어 시드 파생), `Sample(worldX, worldZ)`→[0,1] 정규화. 파라미터는 `WorldGenConfig.NoiseLayers[]`(레이어당 `NoiseLayerSettings`). (Erosion P1 생략) `Bass.BW.Test` 8개 추가.
 
-### T5. BiomeClassifier
-- [ ] `BiomeAt(worldX, worldZ) → BiomeWeights`: ① 대륙도→바다/육지, ② 육지면 고도+온도+습도→연속 블렌딩.
+### T5. BiomeClassifier ✅
+- [x] `BiomeClassifier(config).BiomeAt(worldX, worldZ) → BiomeWeights`: ① 대륙도 SmoothStep→바다/육지 연속 전이, ② 육지면 (고도·온도·습도) 기후 이상점 가우시안 거리 가중→정규화 연속 블렌딩. 튜닝값 `BiomeClassifierSettings`(이상점·해안대·sharpness). `Bass.BW.Test` 7개 추가(합=1/비음/바다·육지 분기/결정성). 수치는 시작값(만들어보고 조정).
 
 ### T6. 높이 합성
 - [ ] `GenerateHeightField(rect, res)`: 베이스 고도 → 바이옴 가중 셰이핑 → P1 섬 마스크(반경 감쇠) → 최종 높이.
