@@ -12,6 +12,8 @@ namespace Bass.BW.WorldGeneration
         private readonly NoiseField _elevation;
         private readonly BiomeClassifier _biomes;
         private readonly HeightSynthesisSettings _settings;
+        private readonly float _seaLevel;
+        private readonly float _oceanCoastBand;
 
         /// <summary>Config의 elevation 레이어·바이옴 분류·높이 설정으로 합성기를 만든다.</summary>
         public HeightSynthesizer(WorldGenConfig config)
@@ -21,6 +23,8 @@ namespace Bass.BW.WorldGeneration
             _elevation = NoiseField.Create(config, EFieldLayer.Elevation);
             _biomes = new BiomeClassifier(config);
             _settings = config.Height;
+            _seaLevel = config.SeaLevel;
+            _oceanCoastBand = config.Biome.OceanCoastBand;
         }
 
         /// <summary>전역 월드좌표 (worldX, worldZ)의 최종 정규화 높이 [0,1].</summary>
@@ -28,7 +32,7 @@ namespace Bass.BW.WorldGeneration
         {
             float baseHeight = _elevation.Sample(worldX, worldZ);
 
-            BiomeWeights w = _biomes.BiomeAt(worldX, worldZ);
+            BiomeWeights w = _biomes.LandBlendAt(worldX, worldZ);
             float shaping =
                 w.Grassland * _settings.GrasslandHeightBias +
                 w.SnowMountain * _settings.SnowMountainHeightBias +
@@ -37,6 +41,25 @@ namespace Bass.BW.WorldGeneration
 
             float h = (baseHeight + shaping) * IslandMask(worldX, worldZ);
             return Math.Clamp(h, 0f, 1f);
+        }
+
+        /// <summary>
+        /// 최종 바이옴 가중치. 육지 기후 블렌드에 <b>높이 기반 대양</b>을 합성한다 —
+        /// 최종 높이가 <c>SeaLevel</c> 이하면 대양(전이폭 <c>OceanCoastBand</c>). 합은 1.
+        /// </summary>
+        public BiomeWeights BiomeAt(float worldX, float worldZ)
+        {
+            BiomeWeights land = _biomes.LandBlendAt(worldX, worldZ);
+            float h = HeightAt(worldX, worldZ);
+
+            float landFrac = SmoothStep(_seaLevel - _oceanCoastBand, _seaLevel, h);
+            float ocean = 1f - landFrac;
+            return new BiomeWeights(
+                land.Grassland * landFrac,
+                land.SnowMountain * landFrac,
+                land.Desert * landFrac,
+                land.Rocky * landFrac,
+                ocean);
         }
 
         /// <summary>

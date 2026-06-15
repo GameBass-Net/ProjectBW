@@ -5,14 +5,11 @@ namespace Bass.BW.WorldGeneration
     /// </summary>
     public sealed class BiomeClassifierSettings
     {
-        /// <summary>대륙도가 이 값 이하면 완전 바다. (해안 전이대 시작)</summary>
-        public float CoastStart { get; set; } = 0.40f;
-
-        /// <summary>대륙도가 이 값 이상이면 완전 육지. (해안 전이대 끝)</summary>
-        public float CoastEnd { get; set; } = 0.55f;
+        /// <summary>해수면 아래로 이 폭(정규화 높이)만큼이 해안 전이대. 0이면 칼같은 해안선.</summary>
+        public float OceanCoastBand { get; set; } = 0.05f;
 
         /// <summary>기후 거리 → 가중치 변환의 날카로움. 클수록 바이옴 경계가 또렷해진다.</summary>
-        public float BlendSharpness { get; set; } = 8.0f;
+        public float BlendSharpness { get; set; } = 25.0f;
 
         /// <summary>초원 기후 이상점.</summary>
         public BiomeClimate Grassland { get; set; } = new BiomeClimate(0.40f, 0.55f, 0.60f);

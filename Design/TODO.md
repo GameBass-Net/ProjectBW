@@ -44,7 +44,7 @@
 ### T7. 검증 덤프 (엔진 없이) ✅
 - [x] `Tools/WorldGenDump`(net10 콘솔, Core 참조 + ImageSharp NuGet, `GameBassLib.sln` 밖). `dotnet run -- [출력폴더] [시드...]` → 시드별 하이트맵 그레이스케일 + 바이옴맵 컬러 PNG(512²). 코어에 이미지 의존성 없음.
 - [x] 시드 1·2·3 확인 → 반경 감쇠 섬 높이맵 + 연속 바이옴 블렌딩 확인. **"절차 생성 작동" 1차 증명 완료.**
-- [ ] **(후보정)** 대양 높이 기반 재판정 + T5 대륙도→Ocean 정리(아래 보류 참조). 현재 바이옴맵 대양↔높이맵 섬 형태 불일치는 이 보류 때문.
+- [x] **(후보정 완료)** 대양 높이 기반 재판정 + T5 정리: `BiomeClassifier.BiomeAt`→`LandBlendAt`(육지 블렌드만), `HeightSynthesizer.BiomeAt`이 높이<SeaLevel로 대양 합성. 바이옴맵 대양↔섬 형태 일치 확인. `BlendSharpness` 8→25.
 
 ### T8. 테스트 (xUnit) ✅(진행 중)
 - [x] `Bass.Core.Test`: MT19937 7 + MT19937_64 6 + FastNoiseLite 3 = 16, `dotnet test` 통과.
@@ -64,8 +64,8 @@
 
 ## 후보정 / 튜닝 보류 (기록)
 > "지금 대충, 나중에 보정" 합의 항목. 그림(T7) 본 뒤 조정.
-- **대양 판정 모델 전환**: 확정 방향은 "최종 높이 < SeaLevel → 대양"(높이의 결과). 현재 T5 `BiomeClassifier`의 대륙도→Ocean 가중치 로직은 **잠정 잉여** → 높이 기반 재판정으로 덮어쓸 예정(T7 후). 섬 마스크는 그때까지 T5 안 건드리고 높이만 깎음.
-- **튜닝값(전부 시작값)**: `NoiseLayerSettings`(레이어별 주파수/옥타브 등), `BiomeClassifierSettings`(해안대·이상점·sharpness), `HeightSynthesisSettings`(바이옴 셰이핑 가감폭·섬 마스크 중심/반경/감쇠). 그림 보며 조정.
+- ~~대양 판정 모델 전환~~ ✅ 완료: 높이<SeaLevel 기반 재판정으로 통일(`HeightSynthesizer.BiomeAt`), `BiomeClassifier`는 육지 블렌드(`LandBlendAt`)만. 대륙도 레이어는 enum/Config에 보존하되 P1 분류 미사용.
+- **튜닝값(전부 시작값)**: `NoiseLayerSettings`(레이어별 주파수/옥타브 등), `BiomeClassifierSettings`(이상점·sharpness·OceanCoastBand), `HeightSynthesisSettings`(바이옴 셰이핑 가감폭·섬 마스크 중심/반경/감쇠). 그림 보며 조정. **미해결: 사막이 거의 안 나옴**(온도/습도·이상점 튜닝 필요).
 - **바이옴 셰이핑 A→B 재검토**: 현재 A(베이스 고도+바이옴 가중 가감). 산이 충분히 안 솟으면 B(바이옴별 목표 고도 곡선)로 전환 검토.
 
 ## 이후 (P1 나머지 / P2)

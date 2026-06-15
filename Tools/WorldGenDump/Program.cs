@@ -29,9 +29,8 @@ namespace Bass.BW.WorldGenDump
             {
                 var config = new WorldGenConfig { WorldSeed = seed };
                 var height = new HeightSynthesizer(config);
-                var biomes = new BiomeClassifier(config);
 
-                RenderSeed(outDir, seed, height, biomes);
+                RenderSeed(outDir, seed, height);
                 Console.WriteLine($"seed {seed}: height + biome PNG 저장");
             }
 
@@ -57,7 +56,7 @@ namespace Bass.BW.WorldGenDump
             return list.Count > 0 ? list.ToArray() : new uint[] { 1u };
         }
 
-        private static void RenderSeed(string outDir, uint seed, HeightSynthesizer height, BiomeClassifier biomes)
+        private static void RenderSeed(string outDir, uint seed, HeightSynthesizer height)
         {
             using var heightImg = new Image<Rgba32>(ImageSize, ImageSize);
             using var biomeImg = new Image<Rgba32>(ImageSize, ImageSize);
@@ -73,7 +72,7 @@ namespace Bass.BW.WorldGenDump
                     byte g = (byte)(height.HeightAt(worldX, worldZ) * 255f);
                     heightImg[px, py] = new Rgba32(g, g, g, 255);
 
-                    biomeImg[px, py] = BiomeColor(biomes.BiomeAt(worldX, worldZ));
+                    biomeImg[px, py] = BiomeColor(height.BiomeAt(worldX, worldZ));
                 }
             }
 

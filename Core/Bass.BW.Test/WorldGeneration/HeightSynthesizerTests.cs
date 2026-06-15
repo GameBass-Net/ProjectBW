@@ -68,5 +68,45 @@ namespace Bass.BW.Test.WorldGeneration
             var b = new HeightSynthesizer(new WorldGenConfig { WorldSeed = 2u });
             Assert.NotEqual(a.HeightAt(64f, 64f), b.HeightAt(64f, 64f));
         }
+
+        [Fact]
+        public void BiomeAt_WeightsSumToOne()
+        {
+            var synth = new HeightSynthesizer(new WorldGenConfig { WorldSeed = 7u });
+            for (int i = 0; i < 300; i++)
+            {
+                float sum = synth.BiomeAt(64f + i * 0.3f, 64f + i * 0.2f).Sum;
+                Assert.InRange(sum, 0.999f, 1.001f);
+            }
+        }
+
+        [Fact]
+        public void BiomeAt_BeyondIslandFalloff_IsOcean()
+        {
+            // 섬 밖 → 높이 0 → SeaLevel(0.3) 미만 → 대양.
+            var synth = new HeightSynthesizer(new WorldGenConfig { WorldSeed = 9u });
+            var w = synth.BiomeAt(10000f, 10000f);
+            Assert.Equal(1f, w.Ocean, 3);
+            Assert.Equal(EBiomeId.Ocean, w.Dominant);
+        }
+
+        [Fact]
+        public void BiomeAt_SeaLevelAboveMax_IsAllOcean()
+        {
+            // SeaLevel을 1 위로 올리면 모든 높이(≤1)가 해수면 아래 → 전부 대양.
+            var synth = new HeightSynthesizer(new WorldGenConfig { WorldSeed = 1u, SeaLevel = 1.1f });
+            Assert.Equal(1f, synth.BiomeAt(64f, 64f).Ocean, 3);
+        }
+
+        [Fact]
+        public void BiomeAt_SeaLevelZero_IsAllLand()
+        {
+            // SeaLevel 0이면 어떤 높이도 해수면 이상 → 대양 0, 육지 합 1.
+            var synth = new HeightSynthesizer(new WorldGenConfig { WorldSeed = 1u, SeaLevel = 0f });
+            var w = synth.BiomeAt(64f, 64f);
+            Assert.Equal(0f, w.Ocean, 3);
+            float landSum = w.Grassland + w.SnowMountain + w.Desert + w.Rocky;
+            Assert.Equal(1f, landSum, 3);
+        }
     }
 }
