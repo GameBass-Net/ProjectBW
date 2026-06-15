@@ -26,6 +26,18 @@
   - 예: `dotnet build Core/Bass.BW -c Release -f netstandard2.1` → `Bass.BW/bin/Release/netstandard2.1/{Bass.Core,Bass.BW}.dll` → `Client/Assets/Plugins/`.
 - **Unity 통합 레이어**(M2) → `Client/Assets/_ProjectBW/Scripts/...`. `Bass.Core.dll`(Plugins) + Digger 참조. `ZoneBuilder`(코어 질의→Terrain/splat/Digger), `WorldManager`(존 그리드+육지 마스크, P1 정적 로드). (asmdef/ns명 M2에서 확정)
 
+## 구현 결정 로그
+세부 구현 결정 누적 기록(상위 결정은 [README](../README.md) D 로그, 진행 상태는 [TODO](../TODO.md)).
+- **운영 규칙(히스토리 보존)**: append-only. 작업 단위(T번호)별로 추가. 결정이 바뀌면 **기존 항목을 지우지 말고 ~~취소선~~ + 변경 사유**를 남긴 뒤 아래에 새 결정을 추가한다.
+
+### T4. 필드 샘플러 (확정)
+- **(1) 추상화 = 공통 클래스** `ScalarNoiseField` 하나로 4종(Continentalness/Elevation/Temperature/Moisture)을 인스턴스화. 고유 로직(중심거리 가중 등)은 필드가 아니라 T5 BiomeClassifier에서 적용. 필요 시 하이브리드로 승격.
+- **(2) 시드 스코프 2종 분리(중요)**:
+  - **레이어 시드 = `Mix(WorldSeed, 레이어상수)`** — 전역(모든 존 공통). 연속 필드는 **전역 월드좌표 + 이 시드**로 샘플 → 경계 무결(C3). 해시 결합(splitmix류)로 순서 독립.
+  - **존 시드 = `Mix(WorldSeed, gridX, gridY)`** — 이산 존-로컬 콘텐츠(동굴 레이아웃, POI/프롭) 전용. **연속 필드에 사용 금지.**
+- **(3) 출력 정규화 = [0,1] 리맵 + Clamp01.** (변경 가능 — 필요 시 재검토. SeaLevel/HeightField의 [0,1] 관례와 일치)
+- **(4) 파라미터 = 맵당 단일 `WorldGenConfig`**(노이즈 파라미터 포함). 코어는 plain C#, Unity(M2)에서 ScriptableObject로 감싸 인스펙터 하나에서 튜닝. 노이즈 타입 OpenSimplex2 + FBm 저옥타브로 시작.
+
 ## D2. 생성 엔진 — 커스텀 순수 C# 코어 (확정)
 - **생성 코어 = 엔진 비종속 순수 C# 직접 구현.** Unity 종속 생성 에셋 미사용.
 - 이유: 서버 포팅 가드레일(순수 C#)과 일관 + 생성 방식 이해/통제 + MT 직접 구현과 결.

@@ -21,6 +21,18 @@ namespace Bass.BW.WorldGeneration
         /// <summary>정규화 높이 1.0에 해당하는 절대 높이(미터). 절대 높이 = 정규값 × MaxHeight.</summary>
         public float MaxHeight { get; set; } = 200f;
 
-        // --- P1 섬 마스크 / 레이어별 노이즈 파라미터는 T4~T6에서 추가 ---
+        /// <summary>
+        /// 레이어별 노이즈 파라미터. <see cref="EFieldLayer"/> 정수값으로 인덱싱한다(0부터 연속).<br/>
+        /// 시드는 여기 두지 않고 <see cref="WorldSeed"/>에서 레이어마다 파생한다.
+        /// </summary>
+        public NoiseLayerSettings[] NoiseLayers { get; set; } =
+        {
+            new NoiseLayerSettings(), // Continentalness
+            new NoiseLayerSettings(), // Elevation
+            new NoiseLayerSettings(), // Temperature
+            new NoiseLayerSettings(), // Moisture
+        };
+
+        // --- P1 섬 마스크 파라미터는 T6에서 추가 ---
     }
 }

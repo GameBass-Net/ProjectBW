@@ -19,12 +19,12 @@
 
 ### T1. MT (Mersenne Twister) ✅
 - [x] `Bass.Core.MT19937`(std::mt19937 32비트 호환) + `Bass.Core.MT19937_64`(std::mt19937_64 64비트 호환). API: Seed/Next(U)Int·ULong/NextFloat01/NextDouble01/NextInt/NextRange(관대 동작: 동일→반환, 역전→스왑).
-- [ ] 레이어별 스트림 분리 → **T4 필드 생성 시** worldSeed+레이어 상수로 시드 파생(인스턴스 분리). 준비 완료.
+- [x] 레이어별 스트림 분리 → T4 `NoiseField.DeriveLayerSeed(worldSeed, layer)` = `MT19937(worldSeed+layer).NextUInt()`(순수 함수, 레이어 독립 파생).
 - [x] 결정성 확인(xUnit): 32비트 10000번째=4123659995, 64비트 10000번째=9981545732273789042 (둘 다 C++ 표준 적합) + 같은시드 동일.
 
 ### T2. FastNoiseLite 이식 ✅
 - [x] 벤더링: 공식 원본(Auburn/FastNoiseLite, MIT 헤더 유지) → `Bass.Core`. 전역 `FastNoiseLite` 클래스(그대로).
-- [ ] 래퍼 → **T4 필드 샘플러**에서 타입/주파수/옥타브/시드 캡슐화 예정.
+- [x] 래퍼 → T4 `NoiseField`(단일 래퍼) + `NoiseLayerSettings`(타입/주파수/옥타브 등 캡슐화).
 - [x] 결정성 확인: 같은 시드·좌표 동일 + [-1,1] 범위 + 다른시드 분기 (xUnit 통과).
 
 ### T3. 데이터 구조 / Config (`Bass.BW`, ns `Bass.BW.WorldGeneration`) ✅
@@ -32,8 +32,8 @@
 - [x] `WorldGenConfig`: WorldSeed, ZoneSize=128, HeightmapResolution=129, SeaLevel, MaxHeight. (레이어 노이즈·섬마스크 파라미터는 T4~T6에서 추가)
 - [x] `Bass.BW.Test` 8/8 통과(BiomeWeights 4, HeightField 4).
 
-### T4. 필드 샘플러 (전역좌표 입력)
-- [ ] `Continentalness / Elevation / Temperature / Moisture` — 각 FastNoiseLite(레이어 시드), `Sample(worldX, worldZ)`. (Erosion P1 생략)
+### T4. 필드 샘플러 (전역좌표 입력) ✅
+- [x] `Continentalness / Elevation / Temperature / Moisture`(`EFieldLayer`) — 단일 래퍼 `NoiseField`(레이어 시드 파생), `Sample(worldX, worldZ)`→[0,1] 정규화. 파라미터는 `WorldGenConfig.NoiseLayers[]`(레이어당 `NoiseLayerSettings`). (Erosion P1 생략) `Bass.BW.Test` 8개 추가.
 
 ### T5. BiomeClassifier
 - [ ] `BiomeAt(worldX, worldZ) → BiomeWeights`: ① 대륙도→바다/육지, ② 육지면 고도+온도+습도→연속 블렌딩.

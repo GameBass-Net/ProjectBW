@@ -57,25 +57,30 @@ namespace Bass.BW.WorldGeneration
             {
                 EBiomeId best = EBiomeId.Grassland;
                 float bestWeight = Grassland;
+
                 if (SnowMountain > bestWeight)
                 {
                     best = EBiomeId.SnowMountain;
                     bestWeight = SnowMountain;
                 }
+
                 if (Desert > bestWeight)
                 {
                     best = EBiomeId.Desert;
                     bestWeight = Desert;
                 }
+
                 if (Rocky > bestWeight)
                 {
                     best = EBiomeId.Rocky;
                     bestWeight = Rocky;
                 }
+
                 if (Ocean > bestWeight)
                 {
                     best = EBiomeId.Ocean;
                 }
+
                 return best;
             }
         }
