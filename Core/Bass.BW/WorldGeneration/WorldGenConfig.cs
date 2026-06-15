@@ -36,6 +36,7 @@ namespace Bass.BW.WorldGeneration
         /// <summary>바이옴 분류(<see cref="BiomeClassifier"/>) 튜닝 파라미터.</summary>
         public BiomeClassifierSettings Biome { get; set; } = new BiomeClassifierSettings();
 
-        // --- P1 섬 마스크 파라미터는 T6에서 추가 ---
+        /// <summary>높이 합성(<see cref="HeightSynthesizer"/>) 튜닝 파라미터(바이옴 셰이핑·섬 마스크).</summary>
+        public HeightSynthesisSettings Height { get; set; } = new HeightSynthesisSettings();
     }
 }

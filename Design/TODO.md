@@ -38,12 +38,13 @@
 ### T5. BiomeClassifier ✅
 - [x] `BiomeClassifier(config).BiomeAt(worldX, worldZ) → BiomeWeights`: ① 대륙도 SmoothStep→바다/육지 연속 전이, ② 육지면 (고도·온도·습도) 기후 이상점 가우시안 거리 가중→정규화 연속 블렌딩. 튜닝값 `BiomeClassifierSettings`(이상점·해안대·sharpness). `Bass.BW.Test` 7개 추가(합=1/비음/바다·육지 분기/결정성). 수치는 시작값(만들어보고 조정).
 
-### T6. 높이 합성
-- [ ] `GenerateHeightField(rect, res)`: 베이스 고도 → 바이옴 가중 셰이핑 → P1 섬 마스크(반경 감쇠) → 최종 높이.
+### T6. 높이 합성 ✅
+- [x] `HeightSynthesizer(config)`: `HeightAt(x,z)` / `GenerateHeightField(originX, originZ, worldSize, res)`. 베이스 고도(elevation 노이즈) → 바이옴 가중 셰이핑(접근 A, `HeightSynthesisSettings` 가감폭) → P1 섬 마스크(반경 감쇠) → clamp[0,1]. 대양 재판정은 후보정(보류). `Bass.BW.Test` 7개 추가.
 
 ### T7. 검증 덤프 (엔진 없이)
 - [ ] 그리드 샘플 → PNG/CSV(하이트맵 그레이스케일 + 바이옴맵 컬러). 콘솔 앱 또는 테스트로.
 - [ ] 시드 바꿔가며 그럴싸한지 확인 → **"절차 생성 작동" 1차 증명.**
+- [ ] **(후보정)** 그림 확인 후: 대양 높이 기반 재판정 + T5 대륙도→Ocean 정리(아래 보류 참조).
 
 ### T8. 테스트 (xUnit) ✅(진행 중)
 - [x] `Bass.Core.Test`: MT19937 7 + MT19937_64 6 + FastNoiseLite 3 = 16, `dotnet test` 통과.
@@ -60,6 +61,12 @@
 - [ ] **T2.5** 검증: 지형/바이옴 텍스처/동굴 + 캐릭터 보행(Suriyun/FlyCamera).
 
 ---
+
+## 후보정 / 튜닝 보류 (기록)
+> "지금 대충, 나중에 보정" 합의 항목. 그림(T7) 본 뒤 조정.
+- **대양 판정 모델 전환**: 확정 방향은 "최종 높이 < SeaLevel → 대양"(높이의 결과). 현재 T5 `BiomeClassifier`의 대륙도→Ocean 가중치 로직은 **잠정 잉여** → 높이 기반 재판정으로 덮어쓸 예정(T7 후). 섬 마스크는 그때까지 T5 안 건드리고 높이만 깎음.
+- **튜닝값(전부 시작값)**: `NoiseLayerSettings`(레이어별 주파수/옥타브 등), `BiomeClassifierSettings`(해안대·이상점·sharpness), `HeightSynthesisSettings`(바이옴 셰이핑 가감폭·섬 마스크 중심/반경/감쇠). 그림 보며 조정.
+- **바이옴 셰이핑 A→B 재검토**: 현재 A(베이스 고도+바이옴 가중 가감). 산이 충분히 안 솟으면 B(바이옴별 목표 고도 곡선)로 전환 검토.
 
 ## 이후 (P1 나머지 / P2)
 - P1: 스트리밍(정적 전체 로드) → 해수면(SW2) → 캐릭터 → 스폰/상호작용(나무·바위·동물). (roadmap R3~R6)
