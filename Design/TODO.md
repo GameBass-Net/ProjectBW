@@ -41,10 +41,10 @@
 ### T6. 높이 합성 ✅
 - [x] `HeightSynthesizer(config)`: `HeightAt(x,z)` / `GenerateHeightField(originX, originZ, worldSize, res)`. 베이스 고도(elevation 노이즈) → 바이옴 가중 셰이핑(접근 A, `HeightSynthesisSettings` 가감폭) → P1 섬 마스크(반경 감쇠) → clamp[0,1]. 대양 재판정은 후보정(보류). `Bass.BW.Test` 7개 추가.
 
-### T7. 검증 덤프 (엔진 없이)
-- [ ] 그리드 샘플 → PNG/CSV(하이트맵 그레이스케일 + 바이옴맵 컬러). 콘솔 앱 또는 테스트로.
-- [ ] 시드 바꿔가며 그럴싸한지 확인 → **"절차 생성 작동" 1차 증명.**
-- [ ] **(후보정)** 그림 확인 후: 대양 높이 기반 재판정 + T5 대륙도→Ocean 정리(아래 보류 참조).
+### T7. 검증 덤프 (엔진 없이) ✅
+- [x] `Tools/WorldGenDump`(net10 콘솔, Core 참조 + ImageSharp NuGet, `GameBassLib.sln` 밖). `dotnet run -- [출력폴더] [시드...]` → 시드별 하이트맵 그레이스케일 + 바이옴맵 컬러 PNG(512²). 코어에 이미지 의존성 없음.
+- [x] 시드 1·2·3 확인 → 반경 감쇠 섬 높이맵 + 연속 바이옴 블렌딩 확인. **"절차 생성 작동" 1차 증명 완료.**
+- [ ] **(후보정)** 대양 높이 기반 재판정 + T5 대륙도→Ocean 정리(아래 보류 참조). 현재 바이옴맵 대양↔높이맵 섬 형태 불일치는 이 보류 때문.
 
 ### T8. 테스트 (xUnit) ✅(진행 중)
 - [x] `Bass.Core.Test`: MT19937 7 + MT19937_64 6 + FastNoiseLite 3 = 16, `dotnet test` 통과.
